@@ -1,4 +1,4 @@
-import Crunker from 'https://unpkg.com/crunker@latest/dist/crunker.esm.js'
+import Crunker from 'crunker'
 
 export async function concatAndDownloadAudio(urls) {
   console.log(`concatAndDownloadAudio: length=${urls.length}, first=${urls[0]}`)

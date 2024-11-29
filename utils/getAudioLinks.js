@@ -2,11 +2,11 @@ export async function getAudioLinks(url) {
   const parsedUrl = new URL(url)
   const domain = parsedUrl.hostname
 
-  if (domain.includes('voh.com.tw')) {
+  if (domain === 'www.voh.com.tw') {
     return await getVohAudioLinks(url)
-  } else if (domain.includes('ner.gov.tw')) {
+  } else if (domain === 'www.ner.gov.tw') {
     return await getNerAudioLinks(url)
-  } else if (domain.includes('tradio.gov.taipei')) {
+  } else if (domain === 'tradio.gov.taipei') {
     return await getTradioAudioLinks(url)
   } else {
     throw new Error(`Unsupported domain: ${domain}`)
@@ -18,27 +18,14 @@ export async function getAudioLinks(url) {
 // getAudioLinks('https://www.ner.gov.tw/news/66e258d1425f580023b5f80b').then(console.log);
 // getAudioLinks('https://tradio.gov.taipei/channel/MjEyOA/MjIwNTg0').then(console.log);
 
-async function edgeFetch(url) {
-  const response = await fetch('/api/edgeFetch', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ url })
-  })
-
-  if (!response.ok) {
-    throw new Error(`Error: ${response.statusText}`)
-  }
-
-  const text = await response.text()
-  return text
+async function getContent(url) {
+  return $fetch('api/getPageContent', { method: 'POST', body: { url } })
 }
 
 // 漢聲廣播電臺
 // https://www.voh.com.tw/TW/Playback/ugC_Playback.aspx?PID=168&D=20240917
 async function getVohAudioLinks(url) {
-  const text = await edgeFetch(url)
+  const text = await getContent(url)
   const parser = new DOMParser()
   const doc = parser.parseFromString(text, 'text/html')
   const audioTag = doc.querySelector('div.Audio audio')
@@ -54,8 +41,7 @@ async function getNerAudioLinks(url) {
   const parsedUrl = new URL(url)
   const newsId = parsedUrl.pathname.split('/').pop()
   const apiNewsUrl = new URL(`/api/news/${newsId}`, parsedUrl.origin).href
-  const text = await edgeFetch(apiNewsUrl)
-  const data = JSON.parse(text)
+  const data = await getContent(apiNewsUrl)
   const audioId = data.audio
   const audioUrl = new URL(`/api/audio/${audioId}.mp3`, parsedUrl.origin).href
   return [audioUrl]
@@ -65,7 +51,7 @@ async function getNerAudioLinks(url) {
 // https://tradio.gov.taipei/channel/MjEyOA/MjIwNTg0
 async function getTradioAudioLinks(url) {
   const parsedUrl = new URL(url)
-  const text = await edgeFetch(parsedUrl)
+  const text = await getContent(parsedUrl)
   const parser = new DOMParser()
   // Get the json data
   const doc = parser.parseFromString(text, 'text/html')
@@ -78,12 +64,12 @@ async function getTradioAudioLinks(url) {
   console.log(`getTradioAudioLinks: idx: ${idx}, ${JSON.stringify(data[idx])}`)
   idx = data[idx][`program-${programId}`]
   console.log(`getTradioAudioLinks: idx: ${idx}, ${JSON.stringify(data[idx])}`)
-  idx = data[idx+1]['player_url']
+  idx = data[idx + 1]['player_url']
   console.log(`getTradioAudioLinks: idx: ${idx}, ${JSON.stringify(data[idx])}`)
   const playerUrl = data[idx]
   // Get the audio urls from the player
   console.log(`getTradioAudioLinks: playerUrl: ${playerUrl}`)
-  const text2 = await edgeFetch(new URL(playerUrl))
+  const text2 = await getContent(new URL(playerUrl))
   const doc2 = parser.parseFromString(text2, 'text/html')
   const scriptText = Array.from(doc2.querySelectorAll('script:not([src])'))
     .map((script) => script.textContent)

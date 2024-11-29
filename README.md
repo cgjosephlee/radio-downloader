@@ -9,32 +9,74 @@ Get the audio link of online radio program.
 - 聽台北 Tradio (https://tradio.gov.taipei)
   - 每一個片段10秒，可以選擇要下載的片段範圍，由程式剪輯成單一檔案。
 
-## Project Setup
+## Setup
 
-```sh
+Make sure to install dependencies:
+
+```bash
+# npm
 npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
 ```
 
-### Compile and Hot-Reload for Development
+## Development Server
 
-```sh
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
 npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
 
-### Test API with Vercel
+## Production
 
-```sh
-vercel dev
-```
+Build the application for production:
 
-### Compile and Minify for Production
-
-```sh
+```bash
+# npm
 npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Locally preview production build:
 
-```sh
-npm run lint
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
 ```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

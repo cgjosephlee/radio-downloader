@@ -1,27 +1,27 @@
 {
-  "name": "radio-downloader",
-  "version": "0.0.0",
+  "name": "nuxt-app",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "vue": "^3.4.29"
+    "@nuxt/eslint": "^0.7.2",
+    "crunker": "^2.4.0",
+    "eslint": "^9.15.0",
+    "nuxt": "^3.14.1592",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vuetify-nuxt-module": "^0.18.3"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.8.0",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.23.0",
-    "jsdom": "^25.0.1",
-    "node-fetch": "^3.3.2",
-    "prettier": "^3.2.5",
-    "vite": "^5.3.1"
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "3.4.1"
   }
 }
