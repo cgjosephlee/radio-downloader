@@ -75,6 +75,10 @@ async function downloadMultipleAudio() {
                 {
                   title: '聽台北 Tradio',
                   props: { href: 'https://tradio.gov.taipei', 'prepend-icon': 'mdi-check-circle' }
+                },
+                {
+                  title: '警察廣播電臺',
+                  props: { href: 'https://www.pbs.gov.tw', 'prepend-icon': 'mdi-check-circle' }
                 }
               ]"
               density="compact"

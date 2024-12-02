@@ -8,6 +8,8 @@ export async function getAudioLinks(url) {
     return await getNerAudioLinks(url)
   } else if (domain === 'tradio.gov.taipei') {
     return await getTradioAudioLinks(url)
+  } else if (domain === 'www.pbs.gov.tw') {
+    return await getPbsAudioLinks(url)
   } else {
     throw new Error(`Unsupported domain: ${domain}`)
   }
@@ -77,4 +79,15 @@ async function getTradioAudioLinks(url) {
   const audioBaseUrl = scriptText.match(/src:\s*'([^']+)'/)[1].replace(/playlist.m3u8.+/, '')
   const audioUrls = Array.from({ length: 350 }, (_, i) => `${audioBaseUrl}media_${i + 1}.aac`)
   return audioUrls
+}
+
+// 警察廣播電臺
+// https://www.pbs.gov.tw/cht/index.php?code=list&flag=detail&ids=160&article_id=83337
+async function getPbsAudioLinks(url) {
+  const text = await getContent(url)
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(text, 'text/html')
+  const audioTag = doc.querySelector('audio')
+  const audioUrl = audioTag.getAttribute('src')
+  return [audioUrl]
 }
