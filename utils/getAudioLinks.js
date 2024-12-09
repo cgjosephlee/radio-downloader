@@ -4,6 +4,8 @@ export async function getAudioLinks(url) {
 
   if (domain === 'www.voh.com.tw') {
     return await getVohAudioLinks(url)
+  } else if (domain === 'audio.voh.com.tw') {
+    return await getVohAudioLinks(url)
   } else if (domain === 'www.ner.gov.tw') {
     return await getNerAudioLinks(url)
   } else if (domain === 'tradio.gov.taipei') {
