@@ -11,17 +11,17 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@nuxt/eslint": "^0.7.2",
+    "@nuxt/eslint": "^1.16.0",
     "crunker": "^2.4.0",
-    "eslint": "^9.15.0",
-    "nuxt": "^3.14.1592",
+    "eslint": "^10.6.0",
+    "nuxt": "^3.21.8",
     "vue": "latest",
     "vue-router": "latest",
-    "vuetify-nuxt-module": "^0.18.3"
+    "vuetify-nuxt-module": "^1.0.0-rc.1"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "3.4.1"
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "3.9.4"
   }
 }
