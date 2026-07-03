@@ -140,8 +140,17 @@ async function saveRecording() {
     }
   }
 
-  // Fallback: this shouldn't normally be reached in Chrome
-  console.warn('[Recorder] showSaveFilePicker not available')
+  // Fallback: native download method for unsupported browsers
+  const a = document.createElement('a')
+  a.style.display = 'none'
+  a.href = recordedBlobUrl.value
+  a.download = recordedFileName.value
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+
+  console.log('[Recorder] File saved via native download fallback')
+  recordingStatus.value = 'File saved!'
 }
 
 function clearRecording() {

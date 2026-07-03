@@ -19,33 +19,14 @@ function toggleTheme() {
     <div class="apple-app-container">
       <!-- Top header bar for tools -->
       <header class="apple-header">
-        <div class="header-logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="2" />
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
-            <path d="M12 9V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M6 12H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M17 12H18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <span class="logo-text">Radio Hub</span>
-        </div>
-        <button class="theme-toggle-btn" aria-label="Toggle theme" @click="toggleTheme">
+        <a href="/" class="icon-btn" aria-label="Home">
+          <span class="icon-mask logo-icon"></span>
+        </a>
+        <button class="icon-btn" aria-label="Toggle theme" @click="toggleTheme">
           <!-- Sun Icon (for Dark mode) -->
-          <svg v-if="isDark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2" />
-            <path d="M12 20v2" />
-            <path d="M4.93 4.93l1.41 1.41" />
-            <path d="M17.66 17.66l1.41 1.41" />
-            <path d="M2 12h2" />
-            <path d="M20 12h2" />
-            <path d="M6.34 17.66l-1.41 1.41" />
-            <path d="M19.07 4.93l-1.41 1.41" />
-          </svg>
+          <span v-if="isDark" class="icon-mask sun-icon"></span>
           <!-- Moon Icon (for Light mode) -->
-          <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-          </svg>
+          <span v-else class="icon-mask moon-icon"></span>
         </button>
       </header>
 
@@ -64,11 +45,7 @@ function toggleTheme() {
               :class="{ 'active': activeTab === 'downloader' }"
               @click="activeTab = 'downloader'"
             >
-              <svg class="tab-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
+              <span class="icon-mask downloader-icon tab-icon"></span>
               Downloader
             </button>
             <button 
@@ -76,11 +53,7 @@ function toggleTheme() {
               :class="{ 'active': activeTab === 'recorder' }"
               @click="activeTab = 'recorder'"
             >
-              <svg class="tab-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                <line x1="12" x2="12" y1="19" y2="22" />
-              </svg>
+              <span class="icon-mask recorder-icon tab-icon"></span>
               Web Recorder
             </button>
           </div>
@@ -298,21 +271,7 @@ body {
   padding: 24px 0 12px;
 }
 
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--accent-color);
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: -0.01em;
-}
-
-.logo-text {
-  color: var(--text-primary);
-}
-
-.theme-toggle-btn {
+.icon-btn {
   background: var(--button-secondary-bg);
   border: 1px solid var(--card-border);
   color: var(--text-primary);
@@ -326,12 +285,12 @@ body {
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.theme-toggle-btn:hover {
+.icon-btn:hover {
   background: var(--button-secondary-hover);
   transform: scale(1.05);
 }
 
-.theme-toggle-btn:active {
+.icon-btn:active {
   transform: scale(0.95);
 }
 
@@ -449,6 +408,53 @@ body {
 
 .footer-link:hover {
   text-decoration: underline;
+}
+
+/* Icon Masks */
+.icon-mask {
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  display: inline-block;
+}
+
+.logo-icon {
+  width: 22px;
+  height: 22px;
+  mask-image: url('/logo.svg');
+  -webkit-mask-image: url('/logo.svg');
+}
+
+.sun-icon {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/sun.svg');
+  -webkit-mask-image: url('/sun.svg');
+}
+
+.moon-icon {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/moon.svg');
+  -webkit-mask-image: url('/moon.svg');
+}
+
+.downloader-icon {
+  width: 16px;
+  height: 16px;
+  mask-image: url('/downloader.svg');
+  -webkit-mask-image: url('/downloader.svg');
+}
+
+.recorder-icon {
+  width: 16px;
+  height: 16px;
+  mask-image: url('/recorder.svg');
+  -webkit-mask-image: url('/recorder.svg');
 }
 </style>
 
